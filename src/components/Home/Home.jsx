@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { motion, useScroll, useSpring, useAnimationControls } from "framer-motion";
+import { useOutletContext } from "react-router-dom";
 import InnerHome from "../InnerHome/InnerHome";
 
 function Home() {
   const [isHovering, setIsHovering] = useState(false);
   const { scrollY } = useScroll();
   const controls = useAnimationControls();
+  const { openAuthForm } = useOutletContext();
 
-  // Create a spring-based scroll progress
   const scrollProgress = useSpring(0, { stiffness: 400, damping: 90 });
 
   useEffect(() => {
     return scrollY.onChange((latest) => {
-      // Calculate total scroll progress as a value between 0 and 1
       const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = latest / scrollableHeight; // Progress from top to bottom
+      const progress = latest / scrollableHeight;
       scrollProgress.set(progress);
     });
   }, [scrollY, scrollProgress]);
 
   useEffect(() => {
     const unsubscribe = scrollProgress.on("change", (latest) => {
-      if (latest > 0.4) {  // Change this threshold based on when you want the animation to trigger
+      if (latest > 0.4) {
         controls.start({ opacity: 1, y: 0 });
       } else if (latest < 0.4) {
         controls.start({ opacity: 0, y: 20 });
@@ -31,7 +31,6 @@ function Home() {
     return () => unsubscribe();
   }, [controls, scrollProgress]);
 
-  // Animation variants for the main content
   const variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -41,7 +40,6 @@ function Home() {
     <>
       <div className="h-screen bg-cover bg-center bg-[url('/iot.jpg')]">
         <div className="flex justify-between bg-black bg-opacity-50 h-full p-10">
-          {/* Left Section */}
           <motion.div
             className="flex flex-col items-start justify-center w-1/2 pl-10"
             initial="hidden"
@@ -57,7 +55,7 @@ function Home() {
                 Monitor and manage your IoT devices effortlessly.
               </p>
               <a
-                href="/features"
+                href="/about"
                 className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
               >
                 Explore Features
@@ -82,22 +80,19 @@ function Home() {
             >
               <h2 className="text-white text-4xl font-bold mb-4">Get Started</h2>
               <p className="text-white text-lg mb-8">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                veniam inventore debitis iusto omnis laudantium delectus vitae
-                magni fugiat aut. Nam, unde placeat!
+                In an era where billions of devices are interconnected, security, scalability, and seamless data transfer are paramount for any IoT (Internet of Things) solution.
               </p>
-              <a
-                href="/get-started"
+              <button
+                onClick={openAuthForm}
                 className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
               >
                 Start Now
-              </a>
+              </button>
             </motion.div>
           </div>
         </div>
       </div>
-              <hr />
-      {/* Inner Home section with scroll-triggered animation */}
+      <hr />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={controls}

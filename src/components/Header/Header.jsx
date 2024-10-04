@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { PiPlugsDuotone, PiPlugsConnectedFill } from 'react-icons/pi'; 
 import logo from '/Coding Stuffs/React/cs-project/secure-iot/src/assets/logo.jpeg';
-import AuthForm from '../AuthForm';
 
-const Header = () => {
+const Header = ({ openAuthForm }) => {
   const [isPlugged, setIsPlugged] = useState(false);
 
   const togglePlugState = () => {
-    setIsPlugged((prev) => !prev); // Toggle between plugged/unplugged
+    setIsPlugged((prev) => !prev);
   };
 
   return (
-    <nav className="bg-blue-900 p-3">
+    <nav className="bg-blue-900 p-3  ">
       <div className="container mx-auto flex justify-evenly items-center">
-        {/* Logo */}
         <div className="text-white">
           <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
         </div>
 
-        {/* Navigation Links */}
         <div className="flex space-x-6 mx-72">
           <ul className="flex p-2 space-x-14 text-white">
             <li>
@@ -61,9 +58,7 @@ const Header = () => {
           </ul>
         </div>
 
-        {/* Icon + Sign In Button */}
         <div className="flex items-center space-x-14">
-          {/* Icon: changes based on the state */}
           <div onClick={togglePlugState} className="cursor-pointer">
             {isPlugged ? (
               <PiPlugsConnectedFill className="text-white text-4xl" />
@@ -71,8 +66,12 @@ const Header = () => {
               <PiPlugsDuotone className="text-white text-4xl" />
             )}
           </div>
-
-          <AuthForm />
+          <button 
+            onClick={openAuthForm} 
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Login/Signup
+          </button>
         </div>
       </div>
     </nav>

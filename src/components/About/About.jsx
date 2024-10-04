@@ -4,44 +4,37 @@ import { Container } from '@mui/material';
 import { Security, Build, DevicesOther } from '@mui/icons-material';
 import { FaLaptopCode, FaShieldAlt, FaDatabase, FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
 
+
 // Example team members data with images and social links
 const teamMembers = [
   {
-    name: 'John Doe',
-    role: 'Backend Developer',
-    description: 'Specializes in secure APIs and backend services for IoT communication.',
+    name: 'Samarth Otari',
     icon: <FaLaptopCode className="text-blue-500 text-4xl" />,
-    image: '/api/placeholder/150/150',
+    image: '/samarth.jpg',
     instagram: '#',
     linkedin: '#',
     github: '#',
   },
   {
-    name: 'Jane Smith',
-    role: 'Frontend Developer',
-    description: 'Focuses on building intuitive and user-friendly interfaces.',
+    name: 'Parth Mahajan',
     icon: <FaShieldAlt className="text-green-500 text-4xl" />,
-    image: '/api/placeholder/150/150',
+    image: '/parth.png',
     instagram: '#',
     linkedin: '#',
     github: '#',
   },
   {
-    name: 'Emily Johnson',
-    role: 'Security Expert',
-    description: 'Handles encryption and security mechanisms for data protection.',
+    name: 'Pratik Meshram',
     icon: <FaDatabase className="text-purple-500 text-4xl" />,
-    image: '/api/placeholder/150/150',
+    image: './pratik.png',
     instagram: '#',
     linkedin: '#',
     github: '#',
   },
   {
-    name: 'Michael Brown',
-    role: 'Data Analyst',
-    description: 'Analyzes data from IoT devices and provides actionable insights.',
+    name: 'Ashish Nikam',
     icon: <FaDatabase className="text-purple-500 text-4xl" />,
-    image: '/api/placeholder/150/150',
+    image: '/ashish.jpg',
     instagram: '#',
     linkedin: '#',
     github: '#',
@@ -65,18 +58,18 @@ const stepsList = [
     icon: <FaShieldAlt className="text-4xl text-red-500" />,
   },
   {
-    title: "Connect to MySQL",
-    description: "Use a MySQL client or ORM to connect the backend to a MySQL database.",
+    title: "Connect to MongoDB",
+    description: "Use a MongoDB client or ORM to connect the backend to a MongoDB database.",
     icon: <FaDatabase className="text-4xl text-purple-500" />,
   },
   {
     title: "Store Data",
-    description: "Parse and store the received data in the MySQL database.",
+    description: "Parse and store the received data in the MongoDB database.",
     icon: <FaDatabase className="text-4xl text-orange-500" />,
   },
   {
     title: "Verify Data",
-    description: "Query the MySQL database to verify the stored data.",
+    description: "Query the MongoDB database to verify the stored data.",
     icon: <Security className="text-4xl text-teal-500" />,
   },
 ];

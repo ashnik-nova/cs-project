@@ -3,6 +3,14 @@ import React, { useState } from "react";
 function InnerHome() {
   const [activeTab, setActiveTab] = useState("Secure");
 
+  // Define an object to map each tab to its respective image
+  const tabImages = {
+    Secure: "/secureiot.webp",
+    Reliable: "/reliable-iot.webp",
+    Scalable: "/scalable-iot.avif",
+    Seamless: "/seamless-iot.webp",
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case "Secure":
@@ -67,14 +75,14 @@ function InnerHome() {
         {/* Dynamic Content */}
         <div className="flex">
           {/* Left side content */}
-          <div className="w-1/2 pr-4">{renderContent()}</div>
+          <div className="w-1/2 pr-4  mt-20 items-center">{renderContent()}</div>
 
           {/* Right side image */}
           <div className="w-1/2 flex flex-col items-center justify-center">
             <img
-              src="/your-image-url.jpg"
-              alt="IoT Dashboard"
-              className="w-64 h-64 object-contain"
+              src={tabImages[activeTab]}  // Dynamically render the image based on activeTab
+              alt={`${activeTab} IoT Dashboard`}
+              className="w-80 h-80 object-contain size-32"
             />
           </div>
         </div>
