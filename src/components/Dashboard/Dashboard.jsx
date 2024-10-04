@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Transmit() {
+function Dashboard() {
   return (
-    <div>Transmit</div>
+    <div>Dashboard</div>
   )
 }
 
-export default Transmit
+export default Dashboard
