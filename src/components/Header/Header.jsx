@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PiPlugsDuotone, PiPlugsConnectedFill } from 'react-icons/pi'; 
-import logo from '/Coding Stuffs/React/cs-project/secure-iot/src/assets/logo.jpeg';
+import logo from "D:\\VIT22-26\\TY\\cyber security\\CS-CP\\cs-project\\src\\assets\\logo.jpeg";
 
 const Header = ({ openAuthForm }) => {
   const [isPlugged, setIsPlugged] = useState(false);

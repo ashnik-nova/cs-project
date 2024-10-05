@@ -2,10 +2,8 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
 const WidgetsList = [
-  { id: '1', content: 'Alarm and Sound' },
-  { id: '2', content: 'Chart' },
-  { id: '3', content: 'Map' },
-  { id: '4', content: 'Gauge' }
+  { id: "1", content: "Chart" },
+  { id: "2", content: "Gauge" },
 ];
 
 const Widgets = () => {
