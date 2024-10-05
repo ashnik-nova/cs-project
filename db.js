@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const url = 'mongodb+srv://samarth09:<password>@cluster0.fzzwr8r.mongodb.net/<databasename>?retryWrites=true&w=majority&appName=Cluster0';
+const url = 'mongodb+srv://samarth09: realsamarth09@cluster0.fzzwr8r.mongodb.net/SensorData?retryWrites=true&w=majority&appName=Cluster0';
 
 // Create a connection to the database
 mongoose.connect(url, {
