@@ -1,9 +1,40 @@
 import React, { useState } from "react";
 
+const customStyles = `
+  @media (min-width: 640px) {
+    .custom-container {
+      width: 90vw;
+      height: 80vh;
+      max-width: 1200px;
+      max-height: 800px;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .custom-container {
+      width: 95vw;
+      height: 90vh;
+    }
+  }
+
+  .custom-container {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  .custom-container:hover {
+    transform: scale(1.09);
+  }
+
+  @media (max-height: 600px) {
+    .custom-container:hover {
+      transform: none;
+    }
+  }
+`;
+
 function InnerHome() {
   const [activeTab, setActiveTab] = useState("Secure");
 
-  // Define an object to map each tab to its respective image
   const tabImages = {
     Secure: "/secureiot.webp",
     Reliable: "/reliable-iot.webp",
@@ -55,39 +86,44 @@ function InnerHome() {
   };
 
   return (
-    <div className="h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-lg w-11/12 max-w-4xl p-6 transition-transform duration-700 hover:scale-105 hover:shadow-xl">
-        {/* Navigation Tabs */}
-        <div className="flex justify-around mb-6">
-          {["Secure", "Reliable", "Scalable", "Seamless"].map((tab) => (
-            <button
-              key={tab}
-              className={`px-4 py-2 font-semibold rounded-lg ${
-                activeTab === tab ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
-              }`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+    <>
+      <style>{customStyles}</style>
+      <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
+        <div className="custom-container bg-white shadow-lg rounded-lg p-6 overflow-hidden">
+          {/* Navigation Tabs */}
+          <div className="flex flex-wrap justify-around mb-6">
+            {["Secure", "Reliable", "Scalable", "Seamless"].map((tab) => (
+              <button
+                key={tab}
+                className={`px-4 py-2 text-sm sm:text-base font-semibold rounded-xl m-1 transition-colors duration-300 ${
+                  activeTab === tab ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
 
-        {/* Dynamic Content */}
-        <div className="flex">
-          {/* Left side content */}
-          <div className="w-1/2 pr-4  mt-20 items-center">{renderContent()}</div>
+          {/* Dynamic Content */}
+          <div className="flex flex-col sm:flex-row h-[calc(100%-4rem)] items-center justify-center">
+            {/* Left side content */}
+            <div className="w-full sm:w-1/2 pr-0 sm:pr-4 mb-4 sm:mb-0">
+              {renderContent()}
+            </div>
 
-          {/* Right side image */}
-          <div className="w-1/2 flex flex-col items-center justify-center">
-            <img
-              src={tabImages[activeTab]}  // Dynamically render the image based on activeTab
-              alt={`${activeTab} IoT Dashboard`}
-              className="w-80 h-80 object-contain size-32"
-            />
+            {/* Right side image */}
+            <div className="w-full sm:w-1/2 h-1/2 sm:h-full flex items-center justify-center">
+              <img
+                src={tabImages[activeTab]}
+                alt={`${activeTab} IoT Dashboard`}
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
