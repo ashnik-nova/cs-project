@@ -23,13 +23,18 @@ ChartJS.register(
 
 const Chart = () => {
   const [chartData, setChartData] = useState(null);
-  const [message, setMessage] = useState("Hello from the frontend!");
+  const [message, setMessage] = useState(null); // Set initial message to null
 
   useEffect(() => {
     // Fetch sensor data from the database
     const fetchData = async () => {
       try {
-        const response = await fetch('https://cs-backend-5umj.onrender.com/submit_sensor_data?sensor_value=42&index=1'); // Adjust URL as needed
+        const response = await fetch('https://cs-backend-5umj.onrender.com/submit_sensor_data?sensor_value=42&index=1');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
 
         const labels = data.map(item => item.index); // Assuming your data has an 'index' property
@@ -56,21 +61,23 @@ const Chart = () => {
     // Fetch data when the component mounts
     fetchData();
 
-    // Send message to /send_message endpoint
+    // Send message to /send_message endpoint using GET
     const sendMessage = async () => {
-      try {
-        const response = await fetch('https://cs-backend-5umj.onrender.com/send_message', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message: message }),
-        });
+      if (message) { // Only send message if it's not null
+        try {
+          const response = await fetch(`https://cs-backend-5umj.onrender.com/send_message?message=${encodeURIComponent(message)}`, {
+            method: 'GET',
+          });
 
-        const result = await response.json();
-        console.log(result); // Log the response from the server
-      } catch (error) {
-        console.error('Error sending message:', error);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          console.log(result); // Log the response from the server
+        } catch (error) {
+          console.error('Error sending message:', error);
+        }
       }
     };
 
