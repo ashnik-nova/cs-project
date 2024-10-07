@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 
+// Registering Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,23 +23,23 @@ ChartJS.register(
 );
 
 const Chart = () => {
-  const [chartData, setChartData] = useState(null);
-  const [message, setMessage] = useState(null); // Set initial message to null
+  const [chartData, setChartData] = useState(null); // State for chart data
+  const [message, setMessage] = useState(null); // State for message
 
   useEffect(() => {
-    // Fetch sensor data from the database
+    // Fetch sensor data from the server
     const fetchData = async () => {
       try {
         const response = await fetch('https://cs-backend-5umj.onrender.com/submit_sensor_data?sensor_value=42&index=1');
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
 
-        const labels = data.map(item => item.index); // Assuming your data has an 'index' property
-        const values = data.map(item => item.sensor_value); // Assuming your data has a 'sensor_value' property
+        const labels = data.map(item => item.index); // Assuming data has an 'index' property
+        const values = data.map(item => item.sensor_value); // Assuming data has a 'sensor_value' property
 
         setChartData({
           labels: labels,
@@ -58,36 +59,34 @@ const Chart = () => {
       }
     };
 
-    // Fetch data when the component mounts
-    fetchData();
+    // Fetch message from the server
+    const fetchMessage = async () => {
+      try {
+        const response = await fetch('https://cs-backend-5umj.onrender.com/get_message'); // Adjust the endpoint as needed
 
-    // Send message to /send_message endpoint using GET
-    const sendMessage = async () => {
-      if (message) { // Only send message if it's not null
-        try {
-          const response = await fetch(`https://cs-backend-5umj.onrender.com/send_message?message=${encodeURIComponent(message)}`, {
-            method: 'GET',
-          });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const result = await response.json();
-          console.log(result); // Log the response from the server
-        } catch (error) {
-          console.error('Error sending message:', error);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const result = await response.json();
+        setMessage(result.message); // Assuming response contains a 'message' property
+        console.log('Received message:', result.message); // Log the received message
+
+      } catch (error) {
+        console.error('Error fetching message:', error);
       }
     };
 
-    sendMessage(); // Call the sendMessage function
+    // Fetch data and message when the component mounts
+    fetchData();
+    fetchMessage();
 
-  }, [message]);
+  }, []); // Run once when the component mounts
 
   return (
     <div>
-      {chartData ? <Line data={chartData} /> : <p>Loading...</p>}
+      {chartData ? <Line data={chartData} /> : <p>Loading chart...</p>} {/* Show loading while fetching chart data */}
+      {message && <p>Received message: {message}</p>} {/* Display received message */}
     </div>
   );
 };
