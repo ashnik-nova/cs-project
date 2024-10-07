@@ -29,7 +29,7 @@ const Chart = () => {
     // Fetch sensor data from the database
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:10000/submit_sensor_data?sensor_value=42&index=1'); // Adjust URL as needed
+        const response = await fetch('https://cs-backend-5umj.onrender.com/submit_sensor_data?sensor_value=42&index=1'); // Adjust URL as needed
         const data = await response.json();
 
         const labels = data.map(item => item.index); // Assuming your data has an 'index' property
@@ -59,7 +59,7 @@ const Chart = () => {
     // Send message to /send_message endpoint
     const sendMessage = async () => {
       try {
-        const response = await fetch('http://localhost:10000/send_message', {
+        const response = await fetch('https://cs-backend-5umj.onrender.com/send_message', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
